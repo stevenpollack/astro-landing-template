@@ -1,0 +1,96 @@
+---
+import { services } from "../config";
+---
+
+<section class="section section--tint" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What we do</span>
+      <h2>Services that fit your needs and your schedule.</h2>
+      <p>
+        Lorem ipsum dolor sit amet — a short section intro that frames your services and the value
+        you take off the customer's plate.
+      </p>
+    </div>
+    <div class="cards">
+      {
+        services.map((service) => (
+          <article class="card">
+            <div class="ic" aria-hidden="true">{service.icon}</div>
+            <h3>{service.title}</h3>
+            <p>{service.blurb}</p>
+            <ul>
+              {service.points.map((point) => (
+                <li>
+                  <span class="tick" aria-hidden="true">✓</span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .cards {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: 1fr;
+  }
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary-wash);
+  }
+  .card .ic {
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    background: var(--color-primary-wash);
+    display: grid;
+    place-items: center;
+    font-size: 1.4rem;
+    margin-bottom: var(--space-md);
+  }
+  .card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+  }
+  .card p {
+    color: var(--color-text-soft);
+  }
+  .card ul {
+    margin: var(--space-sm) 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 9px;
+  }
+  .card li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 0.95rem;
+    color: var(--color-text-soft);
+  }
+  .card li .tick {
+    margin-top: 2px;
+  }
+
+  @media (min-width: 720px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

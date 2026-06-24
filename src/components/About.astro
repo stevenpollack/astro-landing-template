@@ -1,0 +1,64 @@
+---
+import Photo from "./Photo.astro";
+---
+
+<section class="section about" id="about">
+  <div class="wrap about-grid">
+    <Photo label="Photo — friendly owner portrait" ratio="1 / 1" />
+    <div>
+      <span class="eyebrow">Meet the owner</span>
+      <h2>Hi, I'm Your Name — the person behind Acme Co.</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tell your story here: why you
+        started, what you care about, and what customers can expect when they work with you. Keep it
+        warm and personal — this is the human behind the business.
+      </p>
+      <p>
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A second short paragraph
+        to reinforce your promise and the standard you hold yourself to.
+      </p>
+      <p class="sig">
+        Your Name
+        <small>Owner, Acme Co</small>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .about h2 {
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    margin: 16px 0 var(--space-md);
+  }
+  .about p {
+    color: var(--color-text-soft);
+  }
+  .about p + p {
+    margin-top: var(--space-sm);
+  }
+  .sig {
+    margin-top: 22px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--color-text);
+  }
+  .sig small {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--color-text-soft);
+  }
+
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+  }
+</style>

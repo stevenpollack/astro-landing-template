@@ -1,0 +1,61 @@
+---
+import { whyUs } from "../config";
+---
+
+<section class="section section--tint" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Why Acme Co</span>
+      <h2>Small business care, professional results.</h2>
+    </div>
+    <div class="why-grid">
+      {
+        whyUs.map((item) => (
+          <div class="why-item">
+            <div class="ic" aria-hidden="true">{item.icon}</div>
+            <h3>{item.title}</h3>
+            <p>{item.blurb}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-grid {
+    display: grid;
+    gap: 26px 30px;
+    grid-template-columns: 1fr;
+  }
+  .why-item .ic {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    display: grid;
+    place-items: center;
+    font-size: 1.3rem;
+    margin-bottom: var(--space-sm);
+  }
+  .why-item h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+  .why-item p {
+    color: var(--color-text-soft);
+    font-size: 0.96rem;
+  }
+
+  @media (min-width: 720px) {
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 900px) {
+    .why-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

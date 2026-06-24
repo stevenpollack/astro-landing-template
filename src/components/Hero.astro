@@ -1,0 +1,121 @@
+---
+import Photo from "./Photo.astro";
+---
+
+<section class="hero section" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Your category or tagline</span>
+      <h1>Your headline,<br /><span class="hl">benefit-led</span> and memorable.</h1>
+      <p class="lead">
+        A one- or two-sentence subheading that explains what you offer and why a customer should
+        choose you. Keep it clear and benefit-focused.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Get a free quote</a>
+        <a class="btn btn-ghost" href="#services">See what we offer</a>
+      </div>
+      <ul class="hero-trust">
+        <li><span class="tick" aria-hidden="true">✓</span> Trust signal one</li>
+        <li><span class="tick" aria-hidden="true">✓</span> Trust signal two</li>
+        <li><span class="tick" aria-hidden="true">✓</span> Trust signal three</li>
+      </ul>
+    </div>
+
+    <Photo label="Photo — your hero image">
+      <div class="hero-badge">
+        <span class="num">100%</span>
+        <span class="lbl">Your<br />guarantee</span>
+      </div>
+    </Photo>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+  .hero-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .hero h1 {
+    margin-top: 18px;
+    font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+  }
+  .hero .hl {
+    position: relative;
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+  .hero .hl::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.06em;
+    height: 0.22em;
+    background: var(--color-accent);
+    z-index: -1;
+    border-radius: 3px;
+  }
+  .lead {
+    margin-top: 22px;
+    max-width: 32ch;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--color-text-soft);
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: var(--space-lg);
+  }
+  .hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin: 30px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+    color: var(--color-text-soft);
+  }
+  .hero-trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-badge {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-md);
+  }
+  .hero-badge .num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--color-primary-hover);
+  }
+  .hero-badge .lbl {
+    font-size: 0.78rem;
+    line-height: 1.25;
+    color: var(--color-text-soft);
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+  }
+</style>

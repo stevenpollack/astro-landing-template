@@ -1,0 +1,59 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { contact } from "../config";
+---
+
+<Base title="Thanks">
+  <Header />
+  <main class="thanks">
+    <div class="wrap thanks-inner">
+      <span class="tick big" aria-hidden="true">✓</span>
+      <h1>Thanks — your request is on its way.</h1>
+      <p>
+        We've received your message and will be in touch soon. If it's urgent, you're welcome to
+        call or email directly.
+      </p>
+      <div class="thanks-actions">
+        <a class="btn btn-primary" href="/">Back to home</a>
+        <a class="btn btn-ghost" href={`mailto:${contact.email}`}>Email us</a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .thanks {
+    display: grid;
+    place-items: center;
+    min-height: 60vh;
+    padding-block: var(--space-2xl);
+    text-align: center;
+  }
+  .thanks-inner {
+    max-width: 46ch;
+  }
+  .tick.big {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+    margin: 0 auto var(--space-md);
+  }
+  .thanks h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: var(--space-sm);
+  }
+  .thanks p {
+    color: var(--color-text-soft);
+    font-size: 1.1rem;
+  }
+  .thanks-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+</style>

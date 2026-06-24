@@ -1,0 +1,16 @@
+# Server-side secrets for local dev (Cloudflare runtime via platformProxy).
+# Copy to `.dev.vars` and fill in. NEVER commit the real file.
+
+# Fastmail API token with "Email" + "Email Submission" scopes.
+# Create at: Fastmail → Settings → Privacy & Security → API tokens.
+FASTMAIL_API_TOKEN=""
+
+# Verified Fastmail address to send AS (must match an account identity).
+MAIL_FROM="you@acme.example"
+
+# Where leads are delivered (can be the same as MAIL_FROM).
+MAIL_TO="you@acme.example"
+
+# Cloudflare Turnstile secret key. Leave blank to disable the spam check locally.
+# Always-pass test secret: 1x0000000000000000000000000000000AA
+TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"

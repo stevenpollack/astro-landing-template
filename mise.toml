@@ -1,0 +1,5 @@
+# Pins the runtime. `mise install` provides bun; `bun install` then pulls all JS
+# tooling (biome, lefthook, playwright, …) as devDependencies — so the same versions
+# are used locally and in CI without mise needing to be present there.
+[tools]
+bun = "1.3"

@@ -1,0 +1,108 @@
+---
+import { site, contact, nav } from "../config";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="brand">
+          <span class="mark" aria-hidden="true">✦</span>
+          {site.name}
+        </span>
+        <p class="foot-tag">
+          Your one-line value proposition, repeated here for the footer. Owner-operated by Your Name.
+        </p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <strong>Explore</strong>
+          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+        </div>
+        <div class="foot-col">
+          <strong>Contact</strong>
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          <a href={contact.phoneHref}>{contact.phone}</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© {year} {site.name}. ABN {contact.abn}</span>
+      <span>{site.domain}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-inverse-bg);
+    color: var(--color-inverse-text);
+    padding-block: var(--space-xl) 30px;
+  }
+  .foot-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--color-on-primary);
+  }
+  .brand .mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--color-accent);
+    color: var(--color-primary-hover);
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+  }
+  .foot-tag {
+    margin-top: 14px;
+    max-width: 34ch;
+    font-size: 0.95rem;
+    color: var(--color-inverse-text-soft);
+  }
+  .foot-links {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+  }
+  .foot-col {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+  .foot-col strong {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+  }
+  .foot-col a {
+    color: var(--color-inverse-text-soft);
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .foot-col a:hover {
+    color: var(--color-on-primary);
+  }
+  .foot-bottom {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid color-mix(in oklab, var(--color-on-primary) 12%, transparent);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--color-inverse-text-soft);
+  }
+</style>

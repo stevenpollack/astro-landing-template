@@ -1,0 +1,22 @@
+# Git hooks, managed by Lefthook (a bun devDependency, pinned in package.json).
+# Commands run through bun so the pinned node_modules binaries are used.
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: biome
+      glob: "*.{ts,tsx,js,mjs,json,jsonc,css}"
+      run: bunx biome check --write --no-errors-on-unmatched {staged_files}
+      stage_fixed: true
+
+# The real gate (push → Cloudflare deploy). Runs the SAME commands as CI so a local
+# pass means a CI pass: `verify` (lint + type-check + build), then the e2e suite
+# (preview deploy + Playwright smoke/submit/a11y). {push_files} lets the e2e skip on
+# docs-only pushes; CI skips those via the workflows' paths-ignore.
+pre-push:
+  piped: true
+  jobs:
+    - name: verify
+      run: bun run verify
+    - name: e2e
+      run: bun scripts/preview-smoke.ts {push_files}
