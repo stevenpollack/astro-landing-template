@@ -53,3 +53,24 @@ test("submitting the form posts the expected request and shows success", async (
 	// The client's success branch ran.
 	await expect(page.locator(".form-status[data-kind='ok']")).toBeVisible();
 });
+
+test("theme switcher applies a theme and persists it across reload", async ({
+	page,
+}) => {
+	await page.goto("/");
+
+	// Default: no data-theme on <html>.
+	await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
+
+	// Open the panel and pick a non-default theme.
+	await page.click("#ts-fab");
+	await page.check('.ts-radio[value="noir"]');
+
+	// The choice is applied to <html> and saved to localStorage (no cookies).
+	await expect(page.locator("html")).toHaveAttribute("data-theme", "noir");
+	expect(await page.evaluate(() => localStorage.getItem("theme"))).toBe("noir");
+
+	// It survives a reload, applied before paint (no flash back to default).
+	await page.reload();
+	await expect(page.locator("html")).toHaveAttribute("data-theme", "noir");
+});

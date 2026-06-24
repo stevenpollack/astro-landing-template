@@ -8,6 +8,10 @@
  *   1. Brand primitives  (--brand-*, raw palette + scales)
  *   2. Semantic roles     (--color-*, --space-*, etc. — what components consume)
  * Iterate on the brand by editing layer 1; restructure the system via layer 2.
+ *
+ * Layer 2 is also tagged `[data-theme="default"]` so the theme switcher's default
+ * swatch resolves to these values even when another theme is active on <html>.
+ * The alternate themes live in `themes.css`.
  */
 
 :root {
@@ -26,8 +30,11 @@
 
 	--brand-line: oklch(0.89 0.018 175);
 	--brand-white: oklch(1 0 0);
+}
 
-	/* ---- 2. Semantic roles ------------------------------------------------ */
+/* ---- 2. Semantic roles (the default theme) -------------------------------- */
+:root,
+[data-theme="default"] {
 	/* Surfaces & text */
 	--color-bg: var(--brand-paper);
 	--color-bg-tint: var(--brand-paper-tint);

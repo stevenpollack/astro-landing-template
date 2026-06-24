@@ -89,6 +89,20 @@ export const whyUs = [
 	},
 ] as const;
 
+/**
+ * Preview themes for the floating theme switcher. `id` matches a `[data-theme]`
+ * block in `src/styles/themes.css` (`default` = the :root tokens). Swatches read
+ * each theme's real colours via a nested `data-theme`, so only the label lives here.
+ */
+export const themes = [
+	{ id: "default", label: "Studio" },
+	{ id: "terracotta", label: "Terracotta" },
+	{ id: "noir", label: "Noir" },
+	{ id: "ocean", label: "Ocean" },
+	{ id: "editorial", label: "Editorial" },
+	{ id: "mono", label: "Mono" },
+] as const;
+
 /** Options shown in the contact form's "what do you need?" select. */
 export const serviceOptions = [
 	"Your first service",
