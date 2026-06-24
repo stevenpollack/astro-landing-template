@@ -69,8 +69,12 @@ bun run dev       # dev server at http://localhost:4321 (workerd via the cloudfl
   `src/config.ts` → `astro build` → `wrangler deploy` → push Worker secrets → attach custom domain
   (+ auto DNS) when the zone exists. **Config split:** secrets live only in `.env` (`.dev.vars` is
   generated from it by `bun run dev`); public values (domain + sitekey) live only in `src/config.ts`.
-- **State is local** in `.alchemy/` (committed; secrets encrypted via `ALCHEMY_PASSWORD`). **CI
-  never runs Alchemy** — it only `wrangler deploy`s, so there's no shared-state requirement.
+- **State is local** in `.alchemy/` (gitignored; secrets encrypted via `ALCHEMY_PASSWORD`), kept
+  on your machine for idempotent re-runs. **CI never runs Alchemy** — it only `wrangler deploy`s,
+  so there's no shared-state requirement. Losing the state self-heals: a re-bootstrap rewrites the
+  sitekey into `config.ts` + the secret onto the Worker (the old widget is just orphaned).
+- **Bun is pinned to 1.3.13** (`mise.toml`): bun **1.3.14 segfaults** running the Alchemy program
+  (`bun run bootstrap`/`destroy`), so don't bump to 1.3.14 until Bun fixes it. CI pins the same.
 - **Worker secrets + custom domain persist across `wrangler deploy`** (Cloudflare never deletes a
   secret or detaches a domain on deploy), which is *why* push-to-main can ship content without
   re-provisioning. Don't re-add a secret-sync step to `deploy.yml`.

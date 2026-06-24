@@ -164,10 +164,11 @@ builds (local and CI) inline it.
 
 > **What Alchemy owns vs. wrangler.** Alchemy (TypeScript IaC, `alchemy.run.ts` +
 > [`alchemy/turnstile.ts`](alchemy/turnstile.ts)) *provisions* the Turnstile widget and
-> CI secrets; wrangler *ships* the Worker. State lives locally in `.alchemy/` (committed;
-> secrets encrypted with `ALCHEMY_PASSWORD`). Keep `.alchemy/` so re-runs update the same
-> widget instead of creating a new one — losing it means re-bootstrapping mints a fresh
-> sitekey you'd have to re-set.
+> CI secrets; wrangler *ships* the Worker. State lives in `.alchemy/` (gitignored; secrets
+> encrypted with `ALCHEMY_PASSWORD`) — kept on your machine for idempotent re-runs, not
+> needed by CI. If you lose it, a re-bootstrap creates a fresh widget and rewrites the
+> sitekey into `config.ts` + the secret onto the Worker, so everything stays consistent —
+> it just leaves the old widget orphaned in the dashboard.
 
 ### Just want a preview URL? (no domain, no Fastmail yet)
 

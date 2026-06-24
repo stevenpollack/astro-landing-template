@@ -64,8 +64,12 @@ async function cfFetch<T>(
 		errors?: unknown;
 	};
 	if (!res.ok || body.success === false) {
+		const hint =
+			res.status === 403 && path.includes("challenges/widgets")
+				? " — does CLOUDFLARE_API_TOKEN have the 'Account › Turnstile › Edit' permission?"
+				: "";
 		throw new Error(
-			`Cloudflare API ${init?.method ?? "GET"} ${path} failed (${res.status}): ${JSON.stringify(body.errors ?? body)}`,
+			`Cloudflare API ${init?.method ?? "GET"} ${path} failed (${res.status}): ${JSON.stringify(body.errors ?? body)}${hint}`,
 		);
 	}
 	return body.result as T;
