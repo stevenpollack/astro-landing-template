@@ -25,8 +25,10 @@ src/
 ├── layouts/Base.astro     # HTML shell, <head>, fonts
 ├── styles/
 │   ├── tokens.css         # DESIGN TOKENS — single source of truth (re-skin here)
+│   ├── themes.css         # preview themes for the theme switcher (remove before launch)
 │   └── global.css         # base element styles + shared .btn/.eyebrow/etc.
 ├── components/            # Header, Hero, Services, About, WhyUs, ContactForm, Footer, Photo
+│                          # + ThemeSwitcher (preview tool — see "Theme switcher" below)
 ├── pages/
 │   ├── index.astro        # the landing page
 │   ├── thanks.astro       # no-JS success page
@@ -51,6 +53,40 @@ All copy and visuals are **lorem-ipsum placeholders**. Replace them:
    The Worker name is `astro-landing-template` in `package.json`, `wrangler.jsonc`, and
    `WORKER_NAME` in `alchemy.run.ts` / `scripts/bootstrap.ts` — rename it to your own.
 4. **Favicons** — swap the files in `public/` for your own.
+
+## Theme switcher (a preview tool — decide before launch)
+
+The site ships with a small floating **theme switcher** (bottom-right) that re-skins the
+whole page live — palette, typography and shape — across six preview themes: **Studio**
+(the default), **Terracotta**, **Noir**, **Ocean**, **Editorial**, **Mono**. The choice is
+saved to `localStorage` (no cookies) and re-applied before paint. It's here so you can
+audition designs quickly while making the template yours — see [`docs/themes/`](docs/themes)
+for screenshots.
+
+**You almost certainly want to remove it before a real launch.** A commercial landing page
+rarely lets visitors re-skin it, and the switcher ships extra CSS plus (lazily loaded)
+webfonts. Two ways to finish with it:
+
+- **Adopt a theme as your design.** Pick the `[data-theme="…"]` block you like in
+  `src/styles/themes.css` and fold its values into the `:root` tokens in
+  `src/styles/tokens.css` — it overrides the same `--color-*` / `--font-*` / `--radius-*`
+  roles — then remove the switcher (below). Loading those fonts becomes part of the eager
+  `<link>` in `src/layouts/Base.astro`.
+- **Keep the default (Studio)** and just remove the switcher.
+
+**To remove it** — every change is a deletion:
+
+1. `src/layouts/Base.astro` — delete the `import ThemeSwitcher …`, the `<ThemeSwitcher />`
+   mount, and the inline `<script is:inline>` theme block in `<head>`.
+2. Delete `src/components/ThemeSwitcher.astro` and `src/styles/themes.css`.
+3. `src/styles/global.css` — remove `@import "./themes.css";`.
+4. `src/config.ts` — remove the `themes` array.
+5. `tests/smoke.spec.ts` — remove the `theme switcher …` test.
+6. *Optional:* in `src/styles/tokens.css` the semantic layer is shared by
+   `:root, [data-theme="default"]`; drop the `, [data-theme="default"]` once no theme
+   attribute is ever set. Delete [`docs/themes/`](docs/themes) too.
+
+`bun run verify` then confirms nothing still references the removed files.
 
 ## Local development
 
@@ -223,3 +259,6 @@ bun run destroy          # full teardown: Alchemy resources (Turnstile, CI secre
 Everything in `src/config.ts` (name, tagline, email/phone, service area, ABN, services,
 claims) and the inline copy in `src/components/` is placeholder text. The `Photo`
 placeholder frames stand in for real photography. Replace all of it before going live.
+
+Also decide what to do with the **theme switcher** — adopt one theme as your design or keep
+the default, then remove the switcher. See [Theme switcher](#theme-switcher-a-preview-tool--decide-before-launch).
