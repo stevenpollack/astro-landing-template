@@ -35,3 +35,8 @@ pnpm-debug.log*
 # playwright
 test-results/
 playwright-report/
+
+# Claude Code per-user local settings (a shared .claude/settings.json stays tracked).
+# Also stops Biome formatting it: useIgnoreFile reads this .gitignore, but not the
+# global core.excludesFile where this rule otherwise lived.
+.claude/settings.local.json
