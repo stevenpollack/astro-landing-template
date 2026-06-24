@@ -2,10 +2,13 @@
 
 import cloudflare from "@astrojs/cloudflare";
 import { defineConfig } from "astro/config";
+import { site } from "./src/config.ts";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://acme.example",
+  // Canonical/sitemap URL — single source of truth in src/config.ts (same value
+  // the <link rel="canonical"> uses), so there's nothing to set here by hand.
+  site: site.url,
   // Static by default; only /api/contact opts into on-demand rendering
   // (export const prerender = false) and ships as the Worker entrypoint.
   output: "static",

@@ -3,3 +3,9 @@
 # are used locally and in CI without mise needing to be present there.
 [tools]
 bun = "1.3"
+
+[env]
+# Auto-load .env into the shell on `cd`, so bare `wrangler` / `gh` commands see your
+# secrets too (bun, Alchemy and the bootstrap already load .env themselves). A missing
+# .env is tolerated, and mise isn't used in CI — this is purely a local convenience.
+_.file = ".env"

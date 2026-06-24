@@ -1,9 +1,9 @@
 ---
-import { contact, serviceOptions } from "../config";
+import { contact, serviceOptions, site } from "../config";
 
-// Public (client-exposed) site key. Set PUBLIC_TURNSTILE_SITE_KEY in .env to
-// enable the Turnstile widget; without it the form falls back to honeypot-only.
-const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+// Public (client-exposed) site key, committed in config.ts. Empty falls back to
+// honeypot-only; `bun run bootstrap` fills in the real widget key.
+const turnstileSiteKey = site.turnstileSiteKey;
 ---
 
 <section class="section" id="contact">

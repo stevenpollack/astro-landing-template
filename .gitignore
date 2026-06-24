@@ -21,6 +21,8 @@ pnpm-debug.log*
 .env.local
 # Cloudflare local secrets (server runtime)
 .dev.vars
+# Turnstile keys bridged from Alchemy to the bootstrap (contains the secret)
+.turnstile.json
 
 # macOS-specific files
 .DS_Store

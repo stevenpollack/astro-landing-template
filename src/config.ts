@@ -4,13 +4,22 @@
  * content — replace it with your own business details before launch.
  */
 
+// Your apex domain. Set this during "make it yours"; the bootstrap reads it to
+// attach the custom domain + DNS and to scope the Turnstile allowlist. Leave it
+// as the placeholder to stay on the *.workers.dev URL.
+const DOMAIN = "acme.example";
+
 export const site = {
   name: "Acme Co",
   tagline: "Your one-line value proposition goes here",
-  domain: "acme.example",
-  url: "https://acme.example",
+  domain: DOMAIN,
+  url: `https://${DOMAIN}`,
   description:
     "A short, friendly description of what your business does and who it serves. Owner-operated by Your Name — get in touch for a free quote today.",
+  // Public Cloudflare Turnstile site key (safe to commit). `bun run bootstrap`
+  // fills this in after creating the widget; the always-pass test key is the
+  // placeholder, so the widget works locally out of the box.
+  turnstileSiteKey: "1x00000000000000000000AA",
 } as const;
 
 export const contact = {
