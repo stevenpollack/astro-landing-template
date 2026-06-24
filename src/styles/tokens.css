@@ -11,77 +11,78 @@
  */
 
 :root {
-  /* ---- 1. Brand primitives ---------------------------------------------- */
-  --brand-paper: oklch(0.985 0.008 95);
-  --brand-paper-tint: oklch(0.955 0.022 175);
-  --brand-ink: oklch(0.27 0.022 175);
-  --brand-ink-soft: oklch(0.46 0.02 175);
+	/* ---- 1. Brand primitives ---------------------------------------------- */
+	--brand-paper: oklch(0.985 0.008 95);
+	--brand-paper-tint: oklch(0.955 0.022 175);
+	--brand-ink: oklch(0.27 0.022 175);
+	--brand-ink-soft: oklch(0.46 0.02 175);
 
-  --brand-primary: oklch(0.55 0.082 178);
-  --brand-primary-deep: oklch(0.43 0.072 180);
-  --brand-primary-wash: oklch(0.93 0.03 178);
+	--brand-primary: oklch(0.55 0.082 178);
+	--brand-primary-deep: oklch(0.43 0.072 180);
+	--brand-primary-wash: oklch(0.93 0.03 178);
 
-  --brand-accent: oklch(0.84 0.155 92);
-  --brand-accent-deep: oklch(0.74 0.15 80);
+	--brand-accent: oklch(0.84 0.155 92);
+	--brand-accent-deep: oklch(0.74 0.15 80);
 
-  --brand-line: oklch(0.89 0.018 175);
-  --brand-white: oklch(1 0 0);
+	--brand-line: oklch(0.89 0.018 175);
+	--brand-white: oklch(1 0 0);
 
-  /* ---- 2. Semantic roles ------------------------------------------------ */
-  /* Surfaces & text */
-  --color-bg: var(--brand-paper);
-  --color-bg-tint: var(--brand-paper-tint);
-  --color-surface: var(--brand-white);
-  --color-text: var(--brand-ink);
-  --color-text-soft: var(--brand-ink-soft);
-  --color-border: var(--brand-line);
+	/* ---- 2. Semantic roles ------------------------------------------------ */
+	/* Surfaces & text */
+	--color-bg: var(--brand-paper);
+	--color-bg-tint: var(--brand-paper-tint);
+	--color-surface: var(--brand-white);
+	--color-text: var(--brand-ink);
+	--color-text-soft: var(--brand-ink-soft);
+	--color-border: var(--brand-line);
 
-  /* Actions / brand accents */
-  --color-primary: var(--brand-primary);
-  --color-primary-hover: var(--brand-primary-deep);
-  --color-primary-wash: var(--brand-primary-wash);
-  --color-on-primary: var(--brand-white);
-  --color-accent: var(--brand-accent);
-  --color-accent-deep: var(--brand-accent-deep);
+	/* Actions / brand accents */
+	--color-primary: var(--brand-primary);
+	--color-primary-hover: var(--brand-primary-deep);
+	--color-primary-wash: var(--brand-primary-wash);
+	--color-on-primary: var(--brand-white);
+	--color-accent: var(--brand-accent);
+	--color-accent-deep: var(--brand-accent-deep);
 
-  /* Inverted surface (footer) */
-  --color-inverse-bg: var(--brand-primary-deep);
-  --color-inverse-text: oklch(0.95 0.02 178);
-  --color-inverse-text-soft: oklch(0.85 0.02 178);
+	/* Inverted surface (footer) */
+	--color-inverse-bg: var(--brand-primary-deep);
+	--color-inverse-text: oklch(0.95 0.02 178);
+	--color-inverse-text-soft: oklch(0.85 0.02 178);
 
-  /* Typography */
-  --font-heading: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
-  --leading-body: 1.6;
-  --leading-heading: 1.05;
-  --tracking-heading: -0.02em;
+	/* Typography */
+	--font-heading: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+	--font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+	--text-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+	--leading-body: 1.6;
+	--leading-heading: 1.05;
+	--tracking-heading: -0.02em;
 
-  /* Spacing scale (used for layout rhythm & gaps) */
-  --space-2xs: 0.5rem;
-  --space-xs: 0.75rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
-  --space-2xl: clamp(3.5rem, 9vw, 7rem); /* section padding-block */
+	/* Spacing scale (used for layout rhythm & gaps) */
+	--space-2xs: 0.5rem;
+	--space-xs: 0.75rem;
+	--space-sm: 1rem;
+	--space-md: 1.5rem;
+	--space-lg: 2rem;
+	--space-xl: 3rem;
+	--space-2xl: clamp(3.5rem, 9vw, 7rem); /* section padding-block */
 
-  /* Layout */
-  --layout-maxw: 1140px;
-  --layout-pad: clamp(1.25rem, 5vw, 3.5rem);
+	/* Layout */
+	--layout-maxw: 1140px;
+	--layout-pad: clamp(1.25rem, 5vw, 3.5rem);
 
-  /* Radii */
-  --radius-sm: 11px;
-  --radius-md: 14px;
-  --radius-lg: 24px;
-  --radius-pill: 999px;
+	/* Radii */
+	--radius-sm: 11px;
+	--radius-md: 14px;
+	--radius-lg: 24px;
+	--radius-pill: 999px;
 
-  /* Elevation */
-  --shadow-sm: 0 1px 2px oklch(0.4 0.03 178 / 0.06), 0 4px 14px oklch(0.4 0.03 178 / 0.06);
-  --shadow-md: 0 10px 40px oklch(0.4 0.03 178 / 0.12);
+	/* Elevation */
+	--shadow-sm:
+		0 1px 2px oklch(0.4 0.03 178 / 0.06), 0 4px 14px oklch(0.4 0.03 178 / 0.06);
+	--shadow-md: 0 10px 40px oklch(0.4 0.03 178 / 0.12);
 
-  /* Motion */
-  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
-  --dur-fast: 0.15s;
-  --dur: 0.2s;
+	/* Motion */
+	--ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+	--dur-fast: 0.15s;
+	--dur: 0.2s;
 }

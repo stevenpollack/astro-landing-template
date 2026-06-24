@@ -4,6 +4,8 @@ dist/
 .astro/
 # wrangler build artifacts
 .wrangler/
+# Alchemy local IaC state (kept on your machine for idempotent re-runs; not used by CI)
+.alchemy/
 
 # dependencies
 node_modules/
@@ -21,6 +23,8 @@ pnpm-debug.log*
 .env.local
 # Cloudflare local secrets (server runtime)
 .dev.vars
+# Turnstile keys bridged from Alchemy to the bootstrap (contains the secret)
+.turnstile.json
 
 # macOS-specific files
 .DS_Store
