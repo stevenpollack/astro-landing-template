@@ -115,3 +115,7 @@ in `src/config.ts`. Docs-only pushes don't deploy.
 Content in `src/config.ts` (services, email/phone, ABN, claims), the inline copy in
 `src/components/`, and the `Photo` placeholder frames are lorem-ipsum drafts — replace
 them with real content and photography before launch.
+
+The floating **theme switcher** (`src/components/ThemeSwitcher.astro` + `src/styles/themes.css`)
+is a preview convenience, not a production feature — adopt one theme into `tokens.css` or keep
+the default, then strip it. Removal steps are in `README.md` → "Theme switcher".
