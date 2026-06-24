@@ -24,6 +24,7 @@ const WORKER_NAME = "astro-landing-template";
 const domain = site.domain !== "acme.example" ? site.domain : undefined;
 
 const app = await alchemy(WORKER_NAME);
+const destroying = process.argv.includes("--destroy");
 
 const turnstile = await TurnstileWidget("contact", {
 	name: WORKER_NAME,
@@ -33,14 +34,17 @@ const turnstile = await TurnstileWidget("contact", {
 
 // Hand the keys to the bootstrap: sitekey (public → build) + secret (→ Worker
 // secret). Gitignored; only the public sitekey is also published to CI/GitHub.
-writeFileSync(
-	".turnstile.json",
-	`${JSON.stringify(
-		{ sitekey: turnstile.sitekey, secret: turnstile.secret.unencrypted },
-		null,
-		2,
-	)}\n`,
-);
+// Skip during --destroy, where the widget (and its outputs) no longer exist.
+if (!destroying) {
+	writeFileSync(
+		".turnstile.json",
+		`${JSON.stringify(
+			{ sitekey: turnstile.sitekey, secret: turnstile.secret.unencrypted },
+			null,
+			2,
+		)}\n`,
+	);
+}
 
 // `--setup-gh` (SETUP_GH=1): provision the only secrets CI needs — the Cloudflare
 // deploy credentials. Everything else is either committed (the public sitekey +
