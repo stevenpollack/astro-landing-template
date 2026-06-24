@@ -175,7 +175,10 @@ import { themes } from "../config";
     border-color: var(--color-primary);
     background: var(--color-primary-wash);
   }
-  .ts-option:has(.ts-radio:focus-visible) {
+  /* :focus (not only :focus-visible) so the ring also shows when open() moves
+     focus into the panel programmatically. */
+  .ts-option:has(.ts-radio:focus-visible),
+  .ts-option:has(.ts-radio:focus) {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
@@ -242,8 +245,45 @@ import { themes } from "../config";
   if (switcher && fab && panel) {
     const radios = panel.querySelectorAll<HTMLInputElement>(".ts-radio");
 
-    const current = () => localStorage.getItem(STORAGE_KEY) || "default";
+    // localStorage can throw (storage disabled / blocked site data) — never let
+    // that kill the switcher; it just won't persist.
+    const store = {
+      get() {
+        try {
+          return localStorage.getItem(STORAGE_KEY);
+        } catch {
+          return null;
+        }
+      },
+      set(value: string) {
+        try {
+          localStorage.setItem(STORAGE_KEY, value);
+        } catch {}
+      },
+      remove() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch {}
+      },
+    };
+
+    const current = () => store.get() || "default";
     const isOpen = () => !panel.hasAttribute("hidden");
+
+    // The alternate themes' fonts aren't in the eager <link> (Base.astro) — load
+    // them once, on demand: when the picker opens (swatches preview every theme's
+    // heading font) or when a saved non-default theme is already active.
+    const THEME_FONTS =
+      "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Space+Grotesk:wght@400;500;600;700&display=swap";
+    let themeFontsLoaded = false;
+    const loadThemeFonts = () => {
+      if (themeFontsLoaded) return;
+      themeFontsLoaded = true;
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = THEME_FONTS;
+      document.head.appendChild(link);
+    };
 
     const syncChecked = () => {
       const value = current();
@@ -251,6 +291,7 @@ import { themes } from "../config";
     };
 
     const open = () => {
+      loadThemeFonts();
       panel.removeAttribute("hidden");
       fab.setAttribute("aria-expanded", "true");
       (panel.querySelector<HTMLInputElement>(".ts-radio:checked") ?? radios[0])?.focus();
@@ -265,14 +306,17 @@ import { themes } from "../config";
     const applyTheme = (value: string) => {
       if (value === "default") {
         root.removeAttribute("data-theme");
-        localStorage.removeItem(STORAGE_KEY);
+        store.remove();
       } else {
         root.setAttribute("data-theme", value);
-        localStorage.setItem(STORAGE_KEY, value);
+        store.set(value);
       }
     };
 
     syncChecked();
+    // Returning visitor on a non-default theme: pull its fonts now (the page is
+    // already rendering in them) without waiting for the picker to open.
+    if (current() !== "default") loadThemeFonts();
 
     fab.addEventListener("click", () => (isOpen() ? close() : open()));
     closeBtn?.addEventListener("click", () => close(true));
