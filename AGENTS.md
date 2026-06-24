@@ -29,7 +29,7 @@ bun run dev       # dev server at http://localhost:4321 (workerd via the cloudfl
 | `bun run e2e`       | Playwright smoke tests (set `BASE_URL`)                      |
 | `bun run bootstrap` | One-command standup: Alchemy (Turnstile + CI secrets) + build + deploy + secrets + domain (`--setup-gh` to also configure GitHub Actions) |
 | `bun run deploy`    | `astro build` + `wrangler deploy` (content-only, from your machine) |
-| `bun run destroy`   | `alchemy destroy` — tear down Alchemy-managed resources       |
+| `bun run destroy`   | Full teardown: `alchemy destroy` (Turnstile + CI secrets) + delete the Worker via the CF API |
 
 ## Conventions
 

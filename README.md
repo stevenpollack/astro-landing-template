@@ -215,7 +215,7 @@ Rotate a runtime secret (Fastmail token, etc.) by updating `.env` and re-running
 
 ```sh
 bun run deploy           # = astro build + wrangler deploy
-bun run destroy          # tear down the Alchemy-managed resources (Turnstile, CI secrets)
+bun run destroy          # full teardown: Alchemy resources (Turnstile, CI secrets) + the Worker
 ```
 
 ## Before launch — replace placeholders

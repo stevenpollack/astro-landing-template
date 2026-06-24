@@ -18,7 +18,7 @@
 		"verify": "bun run lint && bun run check && bun run build",
 		"bootstrap": "bun scripts/bootstrap.ts",
 		"deploy": "bun run build && wrangler deploy",
-		"destroy": "alchemy destroy",
+		"destroy": "bun scripts/destroy.ts",
 		"astro": "astro",
 		"generate-types": "wrangler types",
 		"prepare": "lefthook install || true"
