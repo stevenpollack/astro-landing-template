@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import ThemeSwitcher from "../components/ThemeSwitcher.astro";
 import { site } from "../config";
 
 interface Props {
@@ -16,6 +17,14 @@ const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Apply the saved preview theme before paint to avoid a flash (see ThemeSwitcher). -->
+    <script is:inline>
+      try {
+        var t = localStorage.getItem("theme");
+        if (t && t !== "default") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    </script>
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -32,7 +41,9 @@ const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site
     <meta property="og:url" content={site.url} />
     <meta property="og:locale" content="en_AU" />
 
-    <!-- Fonts. Swap/extend in tokens.css if the family changes. -->
+    <!-- Fonts. Only the default theme's pair loads eagerly; the preview themes'
+         families are lazy-loaded by ThemeSwitcher when the picker is opened (or a
+         saved theme is active), so default visitors don't pay for them. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -42,5 +53,6 @@ const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site
   </head>
   <body>
     <slot />
+    <ThemeSwitcher />
   </body>
 </html>

@@ -1,0 +1,175 @@
+/*
+ * Acme Co — preview themes
+ * ----------------------------------------------------------------------------
+ * Each block is a complete re-skin selected by `data-theme` on <html>. The
+ * default theme is the :root set in tokens.css; the blocks below override the
+ * SEMANTIC roles (--color-*) directly, plus typography, shape and elevation, so
+ * each theme is self-contained and easy to read/tweak. Components are untouched —
+ * they only ever read the semantic roles.
+ *
+ * Because the blocks are attribute-scoped, nesting `data-theme="x"` on any element
+ * re-applies that theme to its subtree — this is how the switcher's swatches show
+ * each theme's real colours and heading font with zero duplication.
+ *
+ * Keep every theme at WCAG 2.2 AA contrast (text/bg, button text, footer).
+ */
+
+/* ---- Terracotta — warm earthy serif ------------------------------------- */
+[data-theme="terracotta"] {
+	--color-bg: oklch(0.975 0.018 70);
+	--color-bg-tint: oklch(0.95 0.03 60);
+	--color-surface: oklch(0.992 0.01 70);
+	--color-text: oklch(0.28 0.03 50);
+	--color-text-soft: oklch(0.47 0.035 50);
+	--color-border: oklch(0.88 0.025 60);
+
+	--color-primary: oklch(0.55 0.13 40);
+	--color-primary-hover: oklch(0.47 0.13 38);
+	--color-primary-wash: oklch(0.92 0.045 45);
+	--color-on-primary: oklch(0.99 0.01 70);
+	--color-accent: oklch(0.8 0.13 75);
+	--color-accent-deep: oklch(0.68 0.14 65);
+
+	--color-inverse-bg: oklch(0.32 0.05 45);
+	--color-inverse-text: oklch(0.95 0.02 70);
+	--color-inverse-text-soft: oklch(0.82 0.03 65);
+
+	--font-heading: "Fraunces", ui-serif, Georgia, serif;
+	--font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+	--radius-sm: 10px;
+	--radius-md: 14px;
+	--radius-lg: 22px;
+
+	--shadow-sm:
+		0 1px 2px oklch(0.4 0.05 50 / 0.07), 0 4px 14px oklch(0.4 0.05 50 / 0.08);
+	--shadow-md: 0 10px 40px oklch(0.4 0.05 50 / 0.14);
+}
+
+/* ---- Noir — dark, high-contrast ----------------------------------------- */
+[data-theme="noir"] {
+	--color-bg: oklch(0.18 0.01 260);
+	--color-bg-tint: oklch(0.22 0.012 260);
+	--color-surface: oklch(0.24 0.014 260);
+	--color-text: oklch(0.96 0.005 260);
+	--color-text-soft: oklch(0.78 0.01 260);
+	--color-border: oklch(0.34 0.015 260);
+
+	--color-primary: oklch(0.72 0.15 250);
+	--color-primary-hover: oklch(0.8 0.15 250);
+	--color-primary-wash: oklch(0.3 0.06 255);
+	--color-on-primary: oklch(0.16 0.02 260);
+	--color-accent: oklch(0.84 0.16 150);
+	--color-accent-deep: oklch(0.78 0.16 150);
+
+	--color-inverse-bg: oklch(0.12 0.01 260);
+	--color-inverse-text: oklch(0.95 0.005 260);
+	--color-inverse-text-soft: oklch(0.74 0.01 260);
+
+	--font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+	--font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 18px;
+
+	--shadow-sm: 0 1px 2px oklch(0 0 0 / 0.4), 0 6px 18px oklch(0 0 0 / 0.45);
+	--shadow-md: 0 16px 50px oklch(0 0 0 / 0.55);
+}
+
+/* ---- Ocean — cool blue, airy -------------------------------------------- */
+[data-theme="ocean"] {
+	--color-bg: oklch(0.98 0.01 230);
+	--color-bg-tint: oklch(0.95 0.02 220);
+	--color-surface: oklch(1 0 0);
+	--color-text: oklch(0.28 0.03 245);
+	--color-text-soft: oklch(0.48 0.03 240);
+	--color-border: oklch(0.89 0.02 225);
+
+	--color-primary: oklch(0.55 0.13 245);
+	--color-primary-hover: oklch(0.46 0.13 248);
+	--color-primary-wash: oklch(0.93 0.03 235);
+	--color-on-primary: oklch(1 0 0);
+	--color-accent: oklch(0.82 0.12 200);
+	--color-accent-deep: oklch(0.68 0.13 210);
+
+	--color-inverse-bg: oklch(0.3 0.06 248);
+	--color-inverse-text: oklch(0.95 0.02 235);
+	--color-inverse-text-soft: oklch(0.84 0.025 230);
+
+	--font-heading: "Outfit", ui-sans-serif, system-ui, sans-serif;
+	--font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+	--radius-sm: 12px;
+	--radius-md: 16px;
+	--radius-lg: 26px;
+
+	--shadow-sm:
+		0 1px 2px oklch(0.4 0.06 245 / 0.07), 0 4px 14px oklch(0.4 0.06 245 / 0.08);
+	--shadow-md: 0 10px 40px oklch(0.4 0.06 245 / 0.14);
+}
+
+/* ---- Editorial — classic magazine serif --------------------------------- */
+[data-theme="editorial"] {
+	--color-bg: oklch(0.985 0.005 90);
+	--color-bg-tint: oklch(0.955 0.01 85);
+	--color-surface: oklch(1 0 0);
+	--color-text: oklch(0.22 0.01 60);
+	--color-text-soft: oklch(0.44 0.015 60);
+	--color-border: oklch(0.88 0.008 80);
+
+	--color-primary: oklch(0.45 0.13 18);
+	--color-primary-hover: oklch(0.37 0.13 18);
+	--color-primary-wash: oklch(0.93 0.03 20);
+	--color-on-primary: oklch(0.99 0.005 90);
+	--color-accent: oklch(0.78 0.11 80);
+	--color-accent-deep: oklch(0.64 0.12 70);
+
+	--color-inverse-bg: oklch(0.2 0.01 60);
+	--color-inverse-text: oklch(0.95 0.008 85);
+	--color-inverse-text-soft: oklch(0.82 0.01 80);
+
+	--font-heading: "Playfair Display", ui-serif, Georgia, serif;
+	--font-body: "Source Serif 4", ui-serif, Georgia, serif;
+
+	--radius-sm: 6px;
+	--radius-md: 8px;
+	--radius-lg: 14px;
+
+	--shadow-sm:
+		0 1px 2px oklch(0.3 0.02 60 / 0.08), 0 4px 14px oklch(0.3 0.02 60 / 0.08);
+	--shadow-md: 0 10px 40px oklch(0.3 0.02 60 / 0.13);
+}
+
+/* ---- Mono — brutalist / technical --------------------------------------- */
+[data-theme="mono"] {
+	--color-bg: oklch(0.99 0 0);
+	--color-bg-tint: oklch(0.955 0 0);
+	--color-surface: oklch(1 0 0);
+	--color-text: oklch(0.2 0 0);
+	--color-text-soft: oklch(0.44 0 0);
+	--color-border: oklch(0.78 0 0);
+
+	--color-primary: oklch(0.52 0.21 262);
+	--color-primary-hover: oklch(0.44 0.21 262);
+	--color-primary-wash: oklch(0.92 0.05 262);
+	--color-on-primary: oklch(1 0 0);
+	--color-accent: oklch(0.85 0.18 100);
+	--color-accent-deep: oklch(0.76 0.17 95);
+
+	--color-inverse-bg: oklch(0.18 0 0);
+	--color-inverse-text: oklch(0.98 0 0);
+	--color-inverse-text-soft: oklch(0.78 0 0);
+
+	--font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+	--font-body: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+	/* Brutalist: sharp corners (incl. buttons) + hard offset shadows. */
+	--radius-sm: 2px;
+	--radius-md: 3px;
+	--radius-lg: 4px;
+	--radius-pill: 4px;
+
+	--shadow-sm: 3px 3px 0 oklch(0.2 0 0);
+	--shadow-md: 6px 6px 0 oklch(0.2 0 0);
+}

@@ -1,0 +1,340 @@
+---
+/*
+ * Floating theme switcher — audition the preview themes (palette + type + shape)
+ * defined in src/styles/themes.css. The choice is saved to localStorage (no
+ * cookies) and re-applied before paint by the inline script in Base.astro.
+ *
+ * This is a template convenience for picking a design; strip it before a real
+ * launch (remove the <ThemeSwitcher /> mount in Base.astro and this file).
+ *
+ * Swatches carry a nested `data-theme`, so each one renders in its own theme's
+ * real colours and heading font — no values are duplicated in JS.
+ */
+import { themes } from "../config";
+---
+
+<div class="ts" id="theme-switcher">
+  <button
+    type="button"
+    class="ts-fab"
+    id="ts-fab"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="ts-panel"
+    aria-label="Choose a theme"
+  >
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        d="M12 2a10 10 0 0 0 0 20 2.5 2.5 0 0 0 2.5-2.5c0-.66-.26-1.26-.68-1.7-.4-.43-.65-1-.65-1.62A2.18 2.18 0 0 1 15.35 14H17a5 5 0 0 0 5-5c0-3.87-4.48-7-10-7Zm-5.5 9A1.5 1.5 0 1 1 8 9.5 1.5 1.5 0 0 1 6.5 11Zm3-4A1.5 1.5 0 1 1 11 5.5 1.5 1.5 0 0 1 9.5 7Zm5 0A1.5 1.5 0 1 1 16 5.5 1.5 1.5 0 0 1 14.5 7Z"
+      ></path>
+    </svg>
+  </button>
+
+  <div class="ts-panel" id="ts-panel" role="group" aria-label="Preview a theme" hidden>
+    <div class="ts-head">
+      <span class="ts-title">Preview a theme</span>
+      <button type="button" class="ts-close" id="ts-close" aria-label="Close theme menu">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+
+    <fieldset class="ts-options">
+      <legend class="visually-hidden">Choose a theme</legend>
+      {
+        themes.map((t) => (
+          <label class="ts-option">
+            <input class="ts-radio" type="radio" name="theme" value={t.id} />
+            <span class="ts-swatch" data-theme={t.id} aria-hidden="true">
+              <span class="ts-aa">Aa</span>
+              <span class="ts-dots">
+                <span class="ts-dot ts-dot--p" />
+                <span class="ts-dot ts-dot--a" />
+              </span>
+            </span>
+            <span class="ts-name">{t.label}</span>
+          </label>
+        ))
+      }
+    </fieldset>
+  </div>
+</div>
+
+<style>
+  .ts {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 100;
+  }
+
+  /* ---- Trigger (FAB) ----------------------------------------------------- */
+  .ts-fab {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition:
+      transform var(--dur-fast) var(--ease),
+      color var(--dur) var(--ease);
+  }
+  .ts-fab:hover {
+    transform: translateY(-2px);
+    color: var(--color-primary-hover);
+  }
+
+  /* ---- Panel ------------------------------------------------------------- */
+  /* Mobile-first: full-width bottom sheet anchored to the screen edges. */
+  .ts-panel {
+    position: fixed;
+    left: max(0.75rem, env(safe-area-inset-left));
+    right: max(0.75rem, env(safe-area-inset-right));
+    bottom: calc(52px + 1.5rem + env(safe-area-inset-bottom));
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: var(--space-md);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+  .ts-panel[hidden] {
+    display: none;
+  }
+
+  .ts-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+  .ts-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  .ts-close {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-text-soft);
+    cursor: pointer;
+  }
+  .ts-close:hover {
+    background: var(--color-bg-tint);
+    color: var(--color-text);
+  }
+
+  /* ---- Options (a native radiogroup) ------------------------------------ */
+  .ts-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2xs);
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .ts-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition:
+      border-color var(--dur) var(--ease),
+      background var(--dur) var(--ease);
+  }
+  .ts-option:hover {
+    border-color: var(--color-primary);
+  }
+  /* The radio is the accessible control; hide it visually but keep it focusable. */
+  .ts-radio {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+  .ts-option:has(.ts-radio:checked) {
+    border-color: var(--color-primary);
+    background: var(--color-primary-wash);
+  }
+  /* :focus (not only :focus-visible) so the ring also shows when open() moves
+     focus into the panel programmatically. */
+  .ts-option:has(.ts-radio:focus-visible),
+  .ts-option:has(.ts-radio:focus) {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Swatch renders in its OWN theme via the nested data-theme attribute. */
+  .ts-swatch {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-text);
+    overflow: hidden;
+  }
+  .ts-aa {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .ts-dots {
+    display: flex;
+    gap: 3px;
+    margin-top: 3px;
+  }
+  .ts-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+  .ts-dot--p {
+    background: var(--color-primary);
+  }
+  .ts-dot--a {
+    background: var(--color-accent);
+  }
+  .ts-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  /* ---- Larger screens: compact popover anchored to the FAB -------------- */
+  @media (min-width: 900px) {
+    .ts-panel {
+      left: auto;
+      right: 0;
+      width: 320px;
+      bottom: calc(52px + 1rem);
+    }
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = "theme";
+  const root = document.documentElement;
+  const switcher = document.getElementById("theme-switcher");
+  const fab = document.getElementById("ts-fab");
+  const panel = document.getElementById("ts-panel");
+  const closeBtn = document.getElementById("ts-close");
+
+  if (switcher && fab && panel) {
+    const radios = panel.querySelectorAll<HTMLInputElement>(".ts-radio");
+
+    // localStorage can throw (storage disabled / blocked site data) — never let
+    // that kill the switcher; it just won't persist.
+    const store = {
+      get() {
+        try {
+          return localStorage.getItem(STORAGE_KEY);
+        } catch {
+          return null;
+        }
+      },
+      set(value: string) {
+        try {
+          localStorage.setItem(STORAGE_KEY, value);
+        } catch {}
+      },
+      remove() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch {}
+      },
+    };
+
+    const current = () => store.get() || "default";
+    const isOpen = () => !panel.hasAttribute("hidden");
+
+    // The alternate themes' fonts aren't in the eager <link> (Base.astro) — load
+    // them once, on demand: when the picker opens (swatches preview every theme's
+    // heading font) or when a saved non-default theme is already active.
+    const THEME_FONTS =
+      "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Space+Grotesk:wght@400;500;600;700&display=swap";
+    let themeFontsLoaded = false;
+    const loadThemeFonts = () => {
+      if (themeFontsLoaded) return;
+      themeFontsLoaded = true;
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = THEME_FONTS;
+      document.head.appendChild(link);
+    };
+
+    const syncChecked = () => {
+      const value = current();
+      for (const r of radios) r.checked = r.value === value;
+    };
+
+    const open = () => {
+      loadThemeFonts();
+      panel.removeAttribute("hidden");
+      fab.setAttribute("aria-expanded", "true");
+      (panel.querySelector<HTMLInputElement>(".ts-radio:checked") ?? radios[0])?.focus();
+    };
+
+    const close = (focusFab = false) => {
+      panel.setAttribute("hidden", "");
+      fab.setAttribute("aria-expanded", "false");
+      if (focusFab) fab.focus();
+    };
+
+    const applyTheme = (value: string) => {
+      if (value === "default") {
+        root.removeAttribute("data-theme");
+        store.remove();
+      } else {
+        root.setAttribute("data-theme", value);
+        store.set(value);
+      }
+    };
+
+    syncChecked();
+    // Returning visitor on a non-default theme: pull its fonts now (the page is
+    // already rendering in them) without waiting for the picker to open.
+    if (current() !== "default") loadThemeFonts();
+
+    fab.addEventListener("click", () => (isOpen() ? close() : open()));
+    closeBtn?.addEventListener("click", () => close(true));
+
+    for (const r of radios) {
+      r.addEventListener("change", () => {
+        if (r.checked) applyTheme(r.value);
+      });
+    }
+
+    // Escape closes and returns focus to the trigger.
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) close(true);
+    });
+
+    // Click outside closes.
+    document.addEventListener("click", (e) => {
+      if (isOpen() && !switcher.contains(e.target as Node)) close();
+    });
+  }
+</script>
